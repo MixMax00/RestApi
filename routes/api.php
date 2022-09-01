@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\WorkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,8 @@ use App\Http\Controllers\Api\ProductController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 Route::get('all-product', [ProductController::class, 'show']);
+Route::get('all-employee', [EmployeeController::class, 'all']);
+Route::get('single-employee/{id}', [EmployeeController::class, 'single']);
 
 
 Route::group(['middleware' => ['auth:api']], function() {
@@ -32,12 +36,24 @@ Route::group(['middleware' => ['auth:api']], function() {
    Route::post('update-product/{id}', [ProductController::class, 'update']);
    Route::get('delete-product/{id}', [ProductController::class, 'delete']);
 
+   Route::post('add-employee', [EmployeeController::class, 'addEmployee']);
+   Route::post('update-employee/{id}', [EmployeeController::class, 'update']);
+   Route::get('delete-employee/{id}', [EmployeeController::class, 'delete']);
+
+   Route::post('add-work', [WorkController::class, 'add']);
+   Route::post('update-work/{id}', [WorkController::class, 'update']);
+   Route::get('delete-work{id}', [WorkController::class, 'delete']);
+
+   Route::get('all-work', [WorkController::class, 'all']);
+   Route::get('single-work/{id}', [WorkController::class, 'single']);
+
+
  
 
 });
 
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
